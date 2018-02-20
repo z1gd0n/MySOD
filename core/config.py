@@ -386,7 +386,7 @@ def verify_directories_created():
                     set_setting(path, saved_path)
 
         if not saved_path:
-            saved_path = "storage/videos" + default
+            saved_path = "storage/sod" + default
             set_setting(path, saved_path)
 
 
