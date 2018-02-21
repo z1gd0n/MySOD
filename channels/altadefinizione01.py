@@ -22,7 +22,7 @@ headers = [['Referer', host]]
 
 
 def mainlist(item):
-    logger.info("streamondemand.altadefinizione01 mainlist")
+    logger.info("mysod.altadefinizione01 mainlist")
 
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Ultimi film inseriti[/COLOR]",
@@ -44,7 +44,7 @@ def mainlist(item):
 
 
 def newest(categoria):
-    logger.info("streamondemand.altadefinizione01 newest" + categoria)
+    logger.info("mysod.altadefinizione01 newest" + categoria)
     itemlist = []
     item = Item()
     try:
@@ -68,7 +68,7 @@ def newest(categoria):
 
 
 def peliculas(item):
-    logger.info("streamondemand.altadefinizione01 peliculas")
+    logger.info("mysod.altadefinizione01 peliculas")
     itemlist = []
 
     # Carica la pagina 
@@ -118,7 +118,7 @@ def peliculas(item):
     return itemlist
 
 def peliculas_cat(item):
-    logger.info("streamondemand.altadefinizione01 peliculas")
+    logger.info("mysod.altadefinizione01 peliculas")
     itemlist = []
 
     # Carica la pagina 
@@ -171,7 +171,7 @@ def HomePage(item):
 
 
 def categorias(item):
-    logger.info("streamondemand.altadefinizione01 categorias")
+    logger.info("mysod.altadefinizione01 categorias")
     itemlist = []
 
     # data = scrapertools.cache_page(item.url)
