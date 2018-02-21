@@ -12,9 +12,9 @@
 	<thumbnail>https://d30y9cdsu7xlg0.cloudfront.net/png/1265459-200.png</thumbnail>
 	<bannermenu>https://d30y9cdsu7xlg0.cloudfront.net/png/1265459-200.png</bannermenu>
 
-	<update_url>https://raw.githubusercontent.com/plugin.video.streamondemand/channels/</update_url>
-	<version>3</version>
-	<date>20/04/2017</date>
+	<update_url>https://raw.githubusercontent.com/1000mmr/MySOD/master/channels/</update_url>
+	<version>1</version>
+	<date>01/01/2018</date>
 	<changes>Fix</changes>
 
 	<categories>

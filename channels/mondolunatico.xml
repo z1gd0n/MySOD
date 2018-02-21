@@ -11,9 +11,9 @@
 	<thumbnail>http://mondolunatico.org/wp-content/uploads/2016/02/images-111.jpg</thumbnail>
 	<bannermenu>http://mondolunatico.org/wp-content/uploads/2016/02/images-111.jpg</bannermenu>
 
-	<update_url>https://raw.githubusercontent.com/streamondemand/plugin.video.streamondemand/master/channels/</update_url>
-	<version>10</version>
-	<date>22/06/2016</date>
+	<update_url>https://raw.githubusercontent.com/1000mmr/MySOD/master/channels/</update_url>
+	<version>1</version>
+	<date>01/01/2018</date>
 	<changes>update</changes>
 
 	<categories>

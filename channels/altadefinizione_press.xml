@@ -10,6 +10,12 @@
 	<fanart></fanart>
 	<thumbnail>https://raw.githubusercontent.com/orione7/Pelis_images/master/bannermenu/altadefinizione_press.png</thumbnail>
 	<bannermenu>https://raw.githubusercontent.com/orione7/Pelis_images/master/bannermenu/altadefinizione_press.png</bannermenu>
+	
+	<update_url>https://raw.githubusercontent.com/1000mmr/MySOD/master/channels/</update_url>
+	<version>1</version>
+	<date>01/01/2018</date>
+	<changes>Fix Domain</changes>
+
 
 	
 	<categories>

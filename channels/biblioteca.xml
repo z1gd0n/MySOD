@@ -11,12 +11,12 @@
 	<thumbnail></thumbnail>
 	<bannermenu></bannermenu>
 
-	<update_url>https://raw.githubusercontent.com/streamondemand/plugin.video.streamondemand/master/channels/</update_url>
-    <version>17</version>
+	<update_url>https://raw.githubusercontent.com/1000mmr/MySOD/master/channels/</update_url>
+    <version>1</version>
 
 	<changes>
 		<change>
-			<date>09/04/2017</date>
+			<date>01/01/2018</date>
 			<autor>Costaplus</autor>
 			<description>fix delete downlaod</description>
 		</change>
@@ -39,7 +39,7 @@
 		<id>updatelibrary_wait</id>
 		<type>list</type>
 		<label>   - Attendere prima di aggiornare</label>
-		<default>0</default>
+		<default>1</default>
 		<visible>true</visible>
 		<enabled>eq(-1,Quando si avvia Kodi)|eq(-1,Quando si avvia Kodi e quotidiano)</enabled>
 		<lvalues>No</lvalues>
@@ -229,7 +229,7 @@
 		<id>show_all_seasons</id>
 		<type>bool</type>
 		<label>Mostra l'opzione "Tutte le stagioni"</label>
-		<default>true</default>
+		<default>false</default>
 	</settings>
 	<settings>
 		<id>no_pile_on_seasons</id>

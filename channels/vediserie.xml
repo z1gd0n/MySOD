@@ -11,9 +11,9 @@
     <thumbnail>http://www.vediserie.com/wp-content/uploads/2015/09/logo-vediseriea.png</thumbnail>
     <bannermenu>http://www.vediserie.com/wp-content/uploads/2015/09/logo-vediseriea.png</bannermenu>
 
-    <update_url>https://raw.githubusercontent.com/streamondemand/plugin.video.streamondemand/master/channels/</update_url>
-    <version>8</version>
-    <date>15/09/2017</date>
+    <update_url>https://raw.githubusercontent.com/1000mmr/MySOD/master/channels/</update_url>
+    <version>1</version>
+    <date>01/01/2018</date>
     <changes>Fix Domain</changes>
 
     <categories>
