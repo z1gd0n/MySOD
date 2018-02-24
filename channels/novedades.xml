@@ -12,9 +12,14 @@
 	<thumbnail></thumbnail>
 	
 	<update_url>https://raw.githubusercontent.com/mysod/plugin.video.mysod/master/channels/</update_url>
-	<version>5</version>
+	<version>6</version>
 	
 	<changes>
+		<change> 
+			<date>24/02/18</date>
+			<autor>MrTruth</autor>
+			<description>Merge from pelisalacarta</description>
+		</change>
 		<change> 
 			<date>26/05/17</date>
 			<autor>MrTruth</autor>
