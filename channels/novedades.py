@@ -98,6 +98,7 @@ def mainlist(item, thumbnail_type="squares"):
     new_item.category = "Novità in %s" % new_item.title
     itemlist.append(new_item)
 
+    '''
     if list_canales['anime']:
         thumbnail = thumbnail_base + "/thumb_canales_anime.png"
     new_item = Item(channel=item.channel, action="novedades", extra="anime", title="Episodi Anime",
@@ -119,6 +120,7 @@ def mainlist(item, thumbnail_type="squares"):
                          "channel": new_item.channel}]
     new_item.category = "Novità in %s" % new_item.title
     itemlist.append(new_item)
+    '''
 
     # itemlist.append(Item(channel=item.channel, action="menu_opciones", title="Opciones", viewmode="list",
     #                     thumbnail=thumbnail_base + "/thumb_configuracion_0.png"))
