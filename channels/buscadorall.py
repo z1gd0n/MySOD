@@ -33,7 +33,7 @@ from core.item import Item
 __channel__ = "buscadorall"
 
 #TMDB_KEY = '6889f6089877fd092454d00edb44a84d'
-TMDB_KEY = 'ecbc86c92da237cb9faff6d3ddc4be6d'
+TMDB_KEY = '99ceb6cfe8e4ee644dc3b4d2ca2b2044'
 
 TMDB_URL_BASE = 'http://api.themoviedb.org/3/'
 TMDB_IMAGES_BASEURL = 'http://image.tmdb.org/t/p/'
