@@ -31,11 +31,12 @@ import re
 import time
 from threading import Thread
 
-import xbmc
-from core import channeltools, config, scrapertools
+from core import channeltools
+from core import config
+from platformcode import logger
+from core import scrapertools
 from core.item import Item
-from lib.fuzzywuzzy import fuzz
-from platformcode import logger, platformtools
+from platformcode import platformtools
 
 THUMBNAILS = {'0': 'posters', '1': 'banners', '2': 'squares'}
 
@@ -222,7 +223,7 @@ def novedades(item):
                 logger.info("Ricerca di novità annullata")
                 break
 
-            xbmc.sleep(0.5 * 1000)
+            time.sleep(0.5)
             pendent = [a for a in l_hilo if a.isAlive()]
 
     mensaje = "Risultati ottenuti: %s | Tempo: %2.f secondi" % (len(list_newest), time.time() - start_time)
@@ -241,7 +242,7 @@ def novedades(item):
 
     while time.time() - start_time < 2:
         # mostrar cuadro de progreso con el tiempo empleado durante almenos 2 segundos
-        xbmc.sleep(0.5 * 1000)
+        time.sleep(0.5)
 
     progreso.close()
     return ret
@@ -369,18 +370,12 @@ def agruparXcontenido(list_result_canal, categoria):
 
         except:
             newKey = i.title
-    
-        found = False
-        for k in dict_contenidos.keys():
-            if fuzz.token_sort_ratio(newKey, k) > 85:
-                # Si el contenido ya estaba en el diccionario añadirlo a la lista de opciones...
-                dict_contenidos[k].append(i)
-                found = True
-                break
 
-        if not found:  # ...sino añadirlo al diccionario
+        if newKey in dict_contenidos:
+            # Si el contenido ya estaba en el diccionario añadirlo a la lista de opciones...
+            dict_contenidos[newKey].append(i)
+        else:  # ...sino añadirlo al diccionario
             dict_contenidos[newKey] = [i]
-
 
     # Añadimos el contenido encontrado en la lista list_result
     for v in dict_contenidos.values():
