@@ -12,18 +12,28 @@
 	<bannermenu>http://altadefinizione.bid/wp-content/themes/altedefinizioni/images/logo-alte.png</bannermenu>
 
 	<update_url>https://raw.githubusercontent.com/1000mmr/MySOD/master/channels/</update_url>
-	<version>1</version>
-	<date>01/01/2018</date>
-	<changes>Disabled Channel</changes>
+	<version>2</version>
+	<date>06/03/2018</date>
+	<changes>newest,categories</changes>
 
 	<categories>
 		<category>movie</category>
+		<category>serie</category>
 	</categories>
 
 	<settings>
 		<id>include_in_global_search</id>
 		<type>bool</type>
 		<label>Includi ricerca globale</label>
+		<default>true</default>
+		<enabled>true</enabled>
+		<visible>true</visible>
+	</settings>
+    
+	<settings>
+		<id>include_in_newest_series</id>
+		<type>bool</type>
+		<label>Includi in novità - Serie TV</label>
 		<default>true</default>
 		<enabled>true</enabled>
 		<visible>true</visible>
