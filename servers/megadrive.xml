@@ -12,7 +12,7 @@
 		<ignore_urls>
 		</ignore_urls>
 		<patterns>
-			<pattern>(?://|\.)megadrive\.co/(?:embed(?:-|/))?([a-z0-9A-Z]+)</pattern>
+			<pattern>(?:\/\/|\.)megadrive\.co\/(?:embed|e)(?:-|\/)?([a-z0-9A-Z]+)</pattern>
 			<url>http://megadrive.co/embed-\1.html</url>
 		</patterns>
 	</find_videos>
@@ -45,6 +45,6 @@
 		<visible>false</visible>
 	</settings>
 	<thumbnail>http://media.tvalacarta.info/servers/server_megadrive.png</thumbnail>
-	<update_url>https://raw.githubusercontent.com/streamondemand/plugin.video.streamondemand/master/servers/</update_url>
-	<version>9</version>
+	<update_url>https://raw.githubusercontent.com/1000mmr/MySOD/master/servers/</update_url>
+	<version>10</version>
 </server>

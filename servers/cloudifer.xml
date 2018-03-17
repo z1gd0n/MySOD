@@ -12,7 +12,7 @@
 		<ignore_urls>
 		</ignore_urls>
 		<patterns>
-			<pattern>(?://|\.)cloudifer.\w+/(?:embed/)?([a-zA-Z0-9]+)</pattern>
+			<pattern>(?:\/\/|\.)cloudifer.\w+\/(?:embed(?:\/))?([a-zA-Z0-9]+)</pattern>
 			<url>https://cloudifer.net/embed/\1</url>
 		</patterns>
 	</find_videos>
@@ -46,5 +46,5 @@
 	</settings>
 	<thumbnail>https://cloudifer.net/themes/gravity_blue/images/main_logo_inverted.png</thumbnail>
 	<update_url>https://raw.githubusercontent.com/1000mmr/MySOD/master/servers/</update_url>
-	<version>4</version>
+	<version>5</version>
 </server>
