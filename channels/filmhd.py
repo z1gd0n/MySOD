@@ -21,7 +21,7 @@ def mainlist(item):
             channel=__channel__,
             title="[COLOR azure]Film - Novita'[/COLOR]",
             action="movies",
-            url="%s/genere/al-cinema/" % host,
+            url=host,
             thumbnail=
             "http://orig03.deviantart.net/6889/f/2014/079/7/b/movies_and_popcorn_folder_icon_by_matheusgrilo-d7ay4tw.png"
         ),
@@ -112,52 +112,16 @@ def search(item, texto):
             logger.error("%s" % line)
         return []
 
-
-def movies_search(item):
-    logger.info(" movies_search")
-
-    itemlist = []
-
-    # Descarga la pagina
-    data = httptools.downloadpage(item.url, headers=headers).data
-
-    patron = '<\/div>\s*<a href="([^"]+)">\s*<div class="movie-play">\s*'
-    patron += '<i class="icon-controller-play"></i>\s*</div>\s*<img src="([^"]+)">[^>]+>[^>]+>[^>]+>[^>]+>([^<]+)</h2>'
-
-    matches = scrapertools.find_multiple_matches(data, patron)
-
-    for scrapedurl, scrapedthumbnail, scrapedtitle in matches:
-        scrapedtitle = scrapertools.decodeHtmlentities(scrapedtitle)
-
-        # ------------------------------------------------
-        scrapedthumbnail = httptools.get_url_headers(scrapedthumbnail)
-        # ------------------------------------------------
-        itemlist.append(
-            infoSod(
-                Item(
-                    channel=__channel__,
-                    action="findvideos",
-                    title=scrapedtitle,
-                    url=scrapedurl,
-                    thumbnail=scrapedthumbnail,
-                    fulltitle=scrapedtitle,
-                    show=scrapedtitle),
-                tipo='movie'))
-
-    return itemlist
-
-
 def genre(item):
     logger.info(" genre")
     itemlist = []
 
     data = httptools.downloadpage(item.url, headers=headers).data
 
-    patron = '<li class="dropdown genre-filter">(.*?)</ul>'
-    data = scrapertools.find_single_match(data, patron)
+    bloque = scrapertools.get_match(data, '<ul class="dropdown-menu dropdown-menu-large">(.*?)</ul>')
 
-    patron = '<a href="([^"]+)">([^<]+)</a></label>'
-    matches = scrapertools.find_multiple_matches(data, patron)
+    patron = '<li><a href="([^"]+)">([^<]+)</a></li>'
+    matches = re.compile(patron, re.DOTALL).findall(bloque)
 
     for scrapedurl, scrapedtitle in matches:
         itemlist.append(
@@ -179,11 +143,10 @@ def genre_years(item):
 
     data = httptools.downloadpage(item.url, headers=headers).data
 
-    patron = '<div class="dropdown-toggle" data-toggle="dropdown">Anno<i class="icon-chevron-down"></i></div>(.*?)</ul>'
-    data = scrapertools.find_single_match(data, patron)
+    bloque = scrapertools.get_match(data, 'Anno<i class="icon-chevron-down"></i></div>(.*?)</ul>')
 
     patron = '<li><a href="([^"]+)">([^<]+)</a></li>'
-    matches = scrapertools.find_multiple_matches(data, patron)
+    matches = re.compile(patron, re.DOTALL).findall(bloque)
 
     for scrapedurl, scrapedtitle in matches:
         itemlist.append(
@@ -205,11 +168,10 @@ def genre_country(item):
 
     data = httptools.downloadpage(item.url, headers=headers).data
 
-    patron = '<div class="dropdown-toggle" data-toggle="dropdown">Nazione<i class="icon-chevron-down"></i></div>(.*?)</ul>'
-    data = scrapertools.find_single_match(data, patron)
+    bloque = scrapertools.get_match(data, 'Nazione<i class="icon-chevron-down"></i></div>(.*?)</ul>')
 
-    patron = '<li><a href="(.*?)\s*">([^<]+)</a></li>'
-    matches = scrapertools.find_multiple_matches(data, patron)
+    patron = '<li><a href="([^"]+)">([^<]+)</a></li>'
+    matches = re.compile(patron, re.DOTALL).findall(bloque)
 
     for scrapedurl, scrapedtitle in matches:
         itemlist.append(
@@ -231,11 +193,10 @@ def genre_az(item):
 
     data = httptools.downloadpage(item.url, headers=headers).data
 
-    patron = '<li class="dropdown abc-filter">(.*?)</ul>'
-    data = scrapertools.find_single_match(data, patron)
+    bloque = scrapertools.get_match(data, '<li class="dropdown abc-filter">(.*?)</ul>')
 
     patron = '<li class="abc"><a href="([^"]+)">([^<]+)</a></li>'
-    matches = scrapertools.find_multiple_matches(data, patron)
+    matches = re.compile(patron, re.DOTALL).findall(bloque)
 
     for scrapedurl, scrapedtitle in matches:
         itemlist.append(
@@ -259,16 +220,14 @@ def movies(item):
     # Descarga la pagina
     data = httptools.downloadpage(item.url, headers=headers).data
 
-    patron = '<a href="([^"]+)">\s*<div class="movie-play">\s*<i class="icon-controller-play"></i>\s*</div>\s*<img src="([^"]+)" alt="([^<]+)">'
+    patron = '<div class="item">\s*<a href="([^"]+)">\s*<div class="item-flip">\s*<div class="item-inner">\s*<img src=[^=]+="(.*?)">'
 
     matches = scrapertools.find_multiple_matches(data, patron)
 
-    for scrapedurl, scrapedthumbnail, scrapedtitle in matches:
+    for scrapedurl, scrapedtitle in matches:
         scrapedtitle = scrapertools.decodeHtmlentities(scrapedtitle)
 
-        # ------------------------------------------------
-        scrapedthumbnail = httptools.get_url_headers(scrapedthumbnail)
-        # ------------------------------------------------
+        scrapedthumbnail = ""
         itemlist.append(
             infoSod(
                 Item(
@@ -282,7 +241,7 @@ def movies(item):
                 tipo='movie'))
 
     # Paginación
-    next_page = scrapertools.find_single_match(data, '<a class="nextpostslink" href="([^"]+)">»</a>')
+    next_page = scrapertools.find_single_match(data, '<span class="current">[^<]+</span><a href=\'(.*?)\' class="inactive">')
     if next_page:
         itemlist.append(
             Item(
@@ -304,21 +263,19 @@ def movies_tv(item):
     # Descarga la pagina
     data = httptools.downloadpage(item.url, headers=headers).data
 
-    patron = '<a href="([^"]+)">\s*<div class="movie-play">\s*<i class="icon-controller-play"></i>\s*</div>\s*<img src="([^"]+)" alt="([^<]+)">'
+    patron = '<div class="item">\s*<a href="([^"]+)">\s*<div class="item-flip">\s*<div class="item-inner">\s*<span[^\/]+\/i><\/span><img src=[^=]+="(.*?)">'
 
     matches = scrapertools.find_multiple_matches(data, patron)
 
-    for scrapedurl, scrapedthumbnail, scrapedtitle in matches:
+    for scrapedurl, scrapedtitle in matches:
         scrapedtitle = scrapertools.decodeHtmlentities(scrapedtitle)
 
-        # ------------------------------------------------
-        scrapedthumbnail = httptools.get_url_headers(scrapedthumbnail)
-        # ------------------------------------------------
+        scrapedthumbnail = ""
         itemlist.append(
             infoSod(
                 Item(
                     channel=__channel__,
-                    action="episodios",
+                    action="findvideos",
                     title=scrapedtitle,
                     url=scrapedurl,
                     thumbnail=scrapedthumbnail,
@@ -327,7 +284,7 @@ def movies_tv(item):
                 tipo='tv'))
 
     # Paginación
-    next_page = scrapertools.find_single_match(data, '<a class="nextpostslink" href="([^"]+)">»</a>')
+    next_page = scrapertools.find_single_match(data, '<span class="current">[^<]+</span><a href=\'(.*?)\' class="inactive">')
     if next_page:
         itemlist.append(
             Item(
@@ -349,13 +306,13 @@ def episodios(item):
     data = httptools.downloadpage(item.url, headers=headers).data
     bloque = scrapertools.get_match(data, '</footer>(.*?)</script>')
 
-    patron = r'([^"]+)"[^a]+append[^w]+w[^=]+=[^=]+=[^=]+=\'(.*?)\''
+    patron = '([^"]+)"[^a]+append[^w]+w[^=]+=[^=]+=[^=]+=(.*?)frame'
     matches = re.compile(patron, re.DOTALL).findall(bloque)
 
     for scrapedtitle, scrapedurl in matches:
         scrapedplot = ""
-        scrapedurl = scrapedurl.rpartition('/')
-        scrapedurl = scrapedurl[0]
+        scrapedurl = scrapedurl.replace("'", "")
+        scrapedurl = scrapedurl.replace(" ", "")
         if "span" not in scrapedtitle: continue
         scrapedtitle = scrapedtitle.replace("span", "")
         scrapedtitle = scrapedtitle.replace("openload", "")
@@ -379,6 +336,8 @@ def findvideos(item):
 
     # Carica la pagina 
     data = httptools.downloadpage(item.url, headers=headers).data
+    data = data.rpartition('/')
+    data = data[0]
 
     itemlist = servertools.find_video_items(data=data)
 

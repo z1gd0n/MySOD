@@ -11,9 +11,9 @@
        <thumbnail>https://i.imgur.com/pwNwRMK.png</thumbnail>
        <bannermenu>https://i.imgur.com/pwNwRMK.png</bannermenu>
 
-       <update_url>https://raw.githubusercontent.com/streamondemand/plugin.video.streamondemand/master/channels/</update_url>
+       <update_url>https://raw.githubusercontent.com/1000mmr/MySOD/master/channels/</update_url>
        <version>1</version>
-       <date>28/12/2017</date>
+       <date>17/03/2018</date>
        <changes>Small Fix</changes>
 
        <categories>

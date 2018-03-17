@@ -18,7 +18,7 @@ from platformcode import logger
 
 __channel__ = "serietvu"
 
-host = "http://www.serietvu.online"
+host = "https://www.serietvu.online"
 
 headers = [['Referer', host]]
 
