@@ -12,13 +12,13 @@
 	<bannermenu>http://i.imgur.com/xuz7YWR.png</bannermenu>
 
 	<update_url>https://raw.githubusercontent.com/1000mmr/MySOD/master/channels/</update_url>
-	<version>1</version>
-	<date>01/01/2018</date>
+	<version>2</version>
+	<date>17/03/2018</date>
 	<changes>Fix Domain</changes>
 
 	<categories>
 		<category>movie</category>
-        <category>serie</category>
+                <category>serie</category>
 		<category>anime</category>
 	</categories>
 
