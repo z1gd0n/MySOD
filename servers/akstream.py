@@ -9,7 +9,8 @@ from platformcode import logger
 
 headers = [
     ['User-Agent',
-     'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'],
+#     'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'],
+     'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0'],
 ]
 
 
@@ -19,18 +20,21 @@ def get_video_url(page_url, premium=False, user="", password="", video_password=
 
     data = httptools.downloadpage(page_url, headers=headers).data
 
+    vres=scrapertools.find_multiple_matches(data,'nowrap[^>]+>([^,]+)')
     data_pack = scrapertools.find_single_match(data, "(eval.function.p,a,c,k,e,.*?)\s*</script>")
     if data_pack != "":
         from lib import jsunpack
         data = jsunpack.unpack(data_pack)
-
+        
     # URL
-    matches = scrapertools.find_multiple_matches(data, 'file\s*:\s*"([^"]+)"\s*,\s*label\s*:\s*"([^"]+)"\s*\}')
+    matches = scrapertools.find_multiple_matches(data, '(http.*?\.mp4)')
     _headers = urllib.urlencode(dict(headers))
 
-    for media_url, quality in matches:
+    i=0
+    for media_url in matches:
         # URL del vídeo
-        video_urls.append([scrapertools.get_filename_from_url(media_url)[-4:] + " %s [Akstream]" % quality, media_url + '|' + _headers])
+        video_urls.append([vres[i] + " mp4 [Akstream] ", media_url + '|' + _headers])
+        i=i+1
 
     for video_url in video_urls:
         logger.info("[akstream.py] %s - %s" % (video_url[0], video_url[1]))
