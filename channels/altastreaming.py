@@ -16,7 +16,7 @@ from core.tmdb import infoSod
 
 __channel__ = "altastreaming"
 
-host = "http://www.altastreaming.tv"
+host = "http://altastreaming.pink"
 
 headers = [['Referer', host]]
 
@@ -26,7 +26,7 @@ def mainlist(item):
     itemlist = [Item(channel=__channel__,
                      title="[COLOR azure]Aggiornamenti Film[/COLOR]",
                      action="peliculas",
-                     url="%s/film/" % host,
+                     url=host,
                      extra="movie",
                      thumbnail="http://orig03.deviantart.net/6889/f/2014/079/7/b/movies_and_popcorn_folder_icon_by_matheusgrilo-d7ay4tw.png"),
                 Item(channel=__channel__,
@@ -38,18 +38,18 @@ def mainlist(item):
                      title="[COLOR yellow]Cerca...[/COLOR]",
                      action="search",
                      extra="movie",
-                     thumbnail="http://dc467.4shared.com/img/fEbJqOum/s7/13feaf0c8c0/Search"),
-                Item(channel=__channel__,
-                     title="[COLOR azure]Serie TV[/COLOR]",
-                     action="peliculas_tv",
-                     url="%s/serie-tv-streaming/" % host,
-                     extra="serie",
-                     thumbnail="http://orig03.deviantart.net/6889/f/2014/079/7/b/movies_and_popcorn_folder_icon_by_matheusgrilo-d7ay4tw.png"),
-                Item(channel=__channel__,
-                     title="[COLOR yellow]Cerca Serie TV...[/COLOR]",
-                     action="search",
-                     extra="serie",
                      thumbnail="http://dc467.4shared.com/img/fEbJqOum/s7/13feaf0c8c0/Search")]
+                #Item(channel=__channel__,
+                #     title="[COLOR azure]Serie TV[/COLOR]",
+                #     action="peliculas_tv",
+                #     url="%s/serie-tv-streaming/" % host,
+                #     extra="serie",
+                #     thumbnail="http://orig03.deviantart.net/6889/f/2014/079/7/b/movies_and_popcorn_folder_icon_by_matheusgrilo-d7ay4tw.png"),
+                #Item(channel=__channel__,
+                #     title="[COLOR yellow]Cerca Serie TV...[/COLOR]",
+                #     action="search",
+                #     extra="serie",
+                #     thumbnail="http://dc467.4shared.com/img/fEbJqOum/s7/13feaf0c8c0/Search")]
 
     return itemlist
 
@@ -59,7 +59,7 @@ def categorias(item):
 
     # Carica la pagina 
     data = httptools.downloadpage(item.url, headers=headers).data
-    bloque = scrapertools.get_match(data, '<ul>(.*?)</ul>')
+    bloque = scrapertools.get_match(data, '<ul class="listSubCat" id="Film">(.*?)</ul>')
 
     # Estrae i contenuti 
     patron = '<li><a href="([^"]+)">(.*?)</a></li>'
@@ -95,7 +95,7 @@ def search(item, texto):
 
 
 def newest(categoria):
-    logger.info("streamondemand.altadefinizione01 newest" + categoria)
+    logger.info("streamondemand.altastreaming newest" + categoria)
     itemlist = []
     item = Item()
     try:
@@ -125,14 +125,13 @@ def peliculas(item):
     data = httptools.downloadpage(item.url, headers=headers).data
 
     # Estrae i contenuti 
-    patron = '<h3 class="fl-title"> <a href="([^"]+)"[^t]+title="([^"]+)">'
-    matches = re.compile(patron, re.DOTALL).finditer(data)
+    patron = '<h2 class="titleFilm"><a href="([^"]+)">(.*?)<\/a><\/h2>'
+    matches = re.compile(patron, re.DOTALL).findall(data)
 
-    for match in matches:
+    for scrapedurl, scrapedtitle in matches:
         scrapedplot = ""
         scrapedthumbnail = ""
-        scrapedtitle = scrapertools.unescape(match.group(2))
-        scrapedurl = urlparse.urljoin(item.url, match.group(1))
+        scrapedtitle = scrapertools.decodeHtmlentities(scrapedtitle)
         itemlist.append(infoSod(
             Item(channel=__channel__,
                  action="findvideos",
@@ -146,7 +145,7 @@ def peliculas(item):
                  folder=True), tipo='movie'))
 
     # Paginazione 
-    patronvideos = '<span class="swchItem"><a href="(.*?)">'
+    patronvideos = '<a href="([^"]+)">Succ'
     matches = re.compile(patronvideos, re.DOTALL).findall(data)
 
     if len(matches) > 0:
